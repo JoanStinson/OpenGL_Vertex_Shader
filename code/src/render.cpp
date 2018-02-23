@@ -159,7 +159,7 @@ void GLrender(double currentTime) {
 	glClearBufferfv(GL_COLOR, 0, color);*/
 
 	//MyFirstShader::myRenderCode(currentTime);
-	Cube::drawCube();
+	//Cube::drawCube();
 	
 	//Travelling X
 	//RV::panv[0] = 10.0f*sin(currentTime);
@@ -1018,16 +1018,34 @@ void main() {\n\
 		glEnable(GL_PRIMITIVE_RESTART);
 		glBindVertexArray(cubeVao);
 		glUseProgram(cubeProgram);
+
+		/// Primer cub
+		glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 2.0f, 3.0f));
+		objMat = trans;
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "mv_Mat"), 1, GL_FALSE, glm::value_ptr(RenderVars::_modelView));
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "mvpMat"), 1, GL_FALSE, glm::value_ptr(RenderVars::_MVP));
 		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 1.0f, 1.0f, 1.0f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
+		/// Segon cub
+		// Scale
+		glm::mat4 scale = glm::scale(glm::mat4(), glm::vec3(2.0f+sin(currentTime), 2.0f+sin(currentTime), 2.0f+sin(currentTime)));
+
+		// Rotate
+		float rot = 15.0f * sin(currentTime);
+		glm::mat4 rotate = glm::rotate(glm::mat4(), rot, glm::vec3(0.0f, 1.0f, 0.0f));
+
+		// Translate
+		//trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 3.0f+2.0f*sin(currentTime), 3.0f));
+		glm::mat4 trans2 = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.0f, 3.0f));
+		//objMat =  trans * rotate * scale;
+
+		objMat = trans * rotate * trans2 * scale; // cambiem l'ordre per rotar al voltant
+
+		float red = 0.5f + 0.5f*sin(3.0f*currentTime);
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "mv_Mat"), 1, GL_FALSE, glm::value_ptr(RenderVars::_modelView));
-		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "mvpMat"), 1, GL_FALSE, glm::value_ptr(RenderVars::_MVP));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 1.0f, 0.0f, 1.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 1.0f * sin(currentTime), 0.0f, 0.0f, 0.0f); //change between red and black
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		glUseProgram(0);
