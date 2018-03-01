@@ -110,7 +110,12 @@ void GLinit(int width, int height) {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 
+	// Perspective
 	RV::_projection = glm::perspective(RV::FOV, (float)width/(float)height, RV::zNear, RV::zFar);
+
+	// Orthogonal
+	//float scale = 50.f;
+	//RV::_projection = glm::ortho(-(float)width/scale, (float)width/scale, -(float)height/scale, (float)height/scale, RV::zNear, RV::zFar);
 
 	// Setup shaders & geometry
 	Box::setupCube();
@@ -130,7 +135,7 @@ void GLcleanup() {
 	//MyFirstShader::myInitCode();
 	Cube::cleanupCube();
 }
-
+glm::vec3 myVec3;
 void GLrender(double currentTime) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -138,6 +143,9 @@ void GLrender(double currentTime) {
 	RV::_modelView = glm::translate(RV::_modelView, glm::vec3(RV::panv[0], RV::panv[1], RV::panv[2]));
 	RV::_modelView = glm::rotate(RV::_modelView, RV::rota[1], glm::vec3(1.f, 0.f, 0.f));
 	RV::_modelView = glm::rotate(RV::_modelView, RV::rota[0], glm::vec3(0.f, 1.f, 0.f));
+
+	// LookAt
+	RV::_modelView = glm::lookAt(glm::vec3(0.0f, 2.0f, 10.f), myVec3, glm::vec3(0.f, 1.f, 0.f));
 
 	RV::_MVP = RV::_projection * RV::_modelView;
 
@@ -153,8 +161,6 @@ void GLrender(double currentTime) {
 	gColor = 0.5f*cos(time)+0.5f;
 	rColor = 0.5f*sin(time)+0.5f;
 	
-
-
 	/*const GLfloat color[] = { rColor, gColor, 0.0f, 1.0f };
 	glClearBufferfv(GL_COLOR, 0, color);*/
 
@@ -163,8 +169,10 @@ void GLrender(double currentTime) {
 	
 	//Travelling X
 	//RV::panv[0] = 10.0f*sin(currentTime);
+
 	//Rotation
-	//RV::rota[0] = 10.0f*sin(currentTime);
+	//RV::rota[1] = 10.0f*sin(currentTime);
+
 	//Zoom
 	//RV::panv[2] = 10.0f*sin(currentTime) - 30.0f;
 
@@ -1014,14 +1022,26 @@ void main() {\n\
 		glBindVertexArray(0);
 		glDisable(GL_PRIMITIVE_RESTART);
 	}
+	float testval = 0.f;
 	void draw2Cubes(double currentTime) {
 		glEnable(GL_PRIMITIVE_RESTART);
 		glBindVertexArray(cubeVao);
 		glUseProgram(cubeProgram);
 
 		/// Primer cub
-		glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 2.0f, 3.0f));
+		// Traslació
+		testval = testval + 0.01f;
+		if (testval > 2.0f)
+			testval = 0.0f;
+		myVec3 = glm::vec3(0.f + 4.0f*testval, 2.0f, 0.0f);
+		glm::mat4 trans = glm::translate(glm::mat4(1.0f), myVec3);
+
+		// Rotació
+		float rf = 15.0f * sin(currentTime);
+		glm::mat4 r = glm::rotate(glm::mat4(), testval, myVec3);
+
 		objMat = trans;
+
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "mv_Mat"), 1, GL_FALSE, glm::value_ptr(RenderVars::_modelView));
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "mvpMat"), 1, GL_FALSE, glm::value_ptr(RenderVars::_MVP));
