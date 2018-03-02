@@ -915,8 +915,8 @@ namespace Cube {
 		glm::vec3(halfW, -halfW,  halfW),
 		glm::vec3(halfW, -halfW, -halfW),
 		glm::vec3(-halfW,  halfW, -halfW),
-		glm::vec3(-halfW,  halfW,  halfW),
-		glm::vec3(halfW,  halfW,  halfW),
+		glm::vec3(-halfW + 0.05f,  halfW,  halfW),
+		glm::vec3(halfW - 0.05f,  halfW,  halfW),
 		glm::vec3(halfW,  halfW, -halfW)
 	};
 	glm::vec3 norms[] = {
@@ -1088,7 +1088,7 @@ void main() {\n\
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.55f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.65f, 0.5f, 0.5f));
 
 		// Rotate
 		//float rot = 15.0f * sin(currentTime);
@@ -1108,7 +1108,7 @@ void main() {\n\
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.6f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.8f, 0.5f, 0.5f));
 
 		// Rotate
 		//float rot = 15.0f * sin(currentTime);
@@ -1128,7 +1128,7 @@ void main() {\n\
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.65f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.95f, 0.5f, 0.5f));
 
 		// Rotate
 		//float rot = 15.0f * sin(currentTime);
