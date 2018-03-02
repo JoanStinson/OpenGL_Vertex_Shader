@@ -40,12 +40,6 @@ namespace MyFirstShader {
 	GLuint myVAO;
 }
 
-
-
-
-
-
-
 ////////////////
 
 namespace RenderVars {

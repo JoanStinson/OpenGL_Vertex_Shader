@@ -92,11 +92,8 @@ int main(int argc, char** argv) {
 
 	//myInitCode();
 
-	
 	// Setup ImGui binding
 	ImGui_ImplSdlGL3_Init(mainwindow);
-
-
 
 	bool quit_app = false;
 	while (!quit_app) {
@@ -137,8 +134,6 @@ int main(int argc, char** argv) {
 		//double currentTime = (double) SDL_GetTicks() / 1000.0;
 		//myRenderCode(currentTime);
 		
-
-
 		SDL_GL_SwapWindow(mainwindow);
 		waitforFrameEnd();
 	}
