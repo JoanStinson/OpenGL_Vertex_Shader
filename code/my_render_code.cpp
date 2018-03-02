@@ -910,14 +910,14 @@ namespace Cube {
 						   //|/        |/
 						   //1---------2
 	glm::vec3 verts[] = {
-		glm::vec3(-halfW, -halfW, -halfW),
-		glm::vec3(-halfW, -halfW,  halfW),
-		glm::vec3(halfW, -halfW,  halfW),
-		glm::vec3(halfW, -halfW, -halfW),
-		glm::vec3(-halfW,  halfW, -halfW),
-		glm::vec3(-halfW + 0.05f,  halfW,  halfW),
-		glm::vec3(halfW - 0.05f,  halfW,  halfW),
-		glm::vec3(halfW,  halfW, -halfW)
+		glm::vec3(-halfW, -halfW, -halfW),//0
+		glm::vec3(-halfW+0.05f, -halfW,  halfW),//1
+		glm::vec3(halfW-0.05f, -halfW,  halfW),//2
+		glm::vec3(halfW, -halfW, -halfW),//3
+		glm::vec3(-halfW,  halfW, -halfW),//4
+		glm::vec3(-halfW + 0.05f,  halfW,  halfW),//5
+		glm::vec3(halfW - 0.05f,  halfW,  halfW),//6
+		glm::vec3(halfW,  halfW, -halfW)//7
 	};
 	glm::vec3 norms[] = {
 		glm::vec3(0.f, -1.f,  0.f),
