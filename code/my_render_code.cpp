@@ -111,7 +111,7 @@ void GLinit(int width, int height) {
 
 	//Rotate Camera
 	//RV::rota[0] = 0.5f;
-	RV::rota[1] = 0.1f;
+	RV::rota[1] = 0.05f;
 
 	//Translate Camera
 	RV::panv[1] = -1.0f;
