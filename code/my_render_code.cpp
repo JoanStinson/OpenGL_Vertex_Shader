@@ -143,7 +143,7 @@ void GLcleanup() {
 }
 glm::vec3 myVec3;
 
-float testval = -2.0f;
+float testval = -0.8f;
 void GLrender(double currentTime) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
