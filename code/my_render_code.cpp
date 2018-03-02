@@ -105,15 +105,22 @@ void GLinit(int width, int height) {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 
+
+	//Zoom Camera
+	//RV::panv[2] = 10.0f;
+
 	//Rotate Camera
-	RV::rota[0] = 0.5f;
-	RV::rota[1] = 0.4f;
+	//RV::rota[0] = 0.5f;
+	RV::rota[1] = 0.1f;
+
+	//Translate Camera
+	RV::panv[1] = -1.0f;
 
 	// Perspective
 	//RV::_projection = glm::perspective(RV::FOV, (float)width / (float)height, RV::zNear, RV::zFar);
 
 	// Orthogonal
-	float scale = 50.f;
+	float scale = 500.f;
 	RV::_projection = glm::ortho(-(float)width/scale, (float)width/scale, -(float)height/scale, (float)height/scale, RV::zNear, RV::zFar);
 
 	// Setup shaders & geometry
@@ -171,8 +178,8 @@ void GLrender(double currentTime) {
 	
 	//Travelling X Camera
 	testval = testval + 0.01f;
-	if (testval > 2.0f)
-		testval = -2.0f;
+	if (testval > 0.85f)
+		testval = -0.85f;
 	//myVec3 = glm::vec3(0.f + 4.0f*testval, 2.0f, 0.0f);
 	//glm::mat4 trans = glm::translate(glm::mat4(1.0f), myVec3);
 
@@ -1058,7 +1065,7 @@ void main() {\n\
 
 		/// Segon cub
 		// Scale
-		//glm::mat4 scale = glm::scale(glm::mat4(), glm::vec3(2.0f + sin(currentTime), 2.0f + sin(currentTime), 2.0f + sin(currentTime)));
+		glm::mat4 scale = glm::scale(glm::mat4(), glm::vec3(2.0f + sin(currentTime), 2.0f + sin(currentTime), 2.0f + sin(currentTime)));
 
 		// Rotate
 		//float rot = 15.0f * sin(currentTime);
@@ -1069,7 +1076,7 @@ void main() {\n\
 		//glm::mat4 trans2 = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.0f, 3.0f));
 		//objMat =  trans * rotate * scale;
 
-		//objMat = trans; // cambiem l'ordre per rotar al voltant
+		objMat = scale; // cambiem l'ordre per rotar al voltant
 
 		float red = 0.5f + 0.5f*sin(3.0f*currentTime);
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
