@@ -17,7 +17,7 @@ extern void GLmousecb(MouseEvent ev);
 extern void GLResize(int width, int height);
 extern void GLinit(int width, int height, bool exercise1, bool exercise2a, bool exercise2b, bool exercise3);
 extern void GLcleanup();
-extern void GLrender(double currentTime, bool exercise1, bool exercise2a, bool exercise2b, bool exercise3);
+extern void GLrender(double currentTime, bool exercise1, bool exercise2a, bool exercise2b, bool exercise3, int width, int height);
 
 
 extern void myRenderCode(double currentTime);
@@ -113,12 +113,20 @@ int main(int argc, char** argv) {
 				case SDL_KEYDOWN:
 					if (eve.key.keysym.scancode == SDL_SCANCODE_1) {
 						exercise1 = true;
+						exercise2a = false;
+						exercise2b = false;
+						exercise3 = false;
 					}
 					if (eve.key.keysym.scancode == SDL_SCANCODE_2) {
+						exercise1 = false;
 						exercise2a = true;
 						exercise2b = true; //TODO ficarho a true despres de uns segons i el 2a a false
+						exercise3 = false;
 					}
 					if (eve.key.keysym.scancode == SDL_SCANCODE_3) {
+						exercise1 = false;
+						exercise2a = false;
+						exercise2b = false;
 						exercise3 = true;
 					}
 					if (eve.key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
@@ -146,7 +154,7 @@ int main(int argc, char** argv) {
 
 
 		double currentTime = (double)SDL_GetTicks() / 1000.0;
-		GLrender(currentTime, exercise1, exercise2a, exercise2b, exercise3);
+		GLrender(currentTime, exercise1, exercise2a, exercise2b, exercise3, display_w, display_h);
 		
 		//double currentTime = (double) SDL_GetTicks() / 1000.0;
 		//myRenderCode(currentTime);

@@ -6,7 +6,6 @@
 
 #include "GL_framework.h"
 
-///////// fw decl
 namespace ImGui {
 	void Render();
 }
@@ -124,8 +123,8 @@ void GLinit(int width, int height, bool exercise1, bool exercise2a, bool exercis
 
 	// Orthonormal
 	//if (exercise1) {
-		float scale = 500.f;
-		RV::_projection = glm::ortho(-(float)width / scale, (float)width / scale, -(float)height / scale, (float)height / scale, RV::zNear, RV::zFar);
+		//float scale = 500.f;
+		//RV::_projection = glm::ortho(-(float)width / scale, (float)width / scale, -(float)height / scale, (float)height / scale, RV::zNear, RV::zFar);
 	//}
 	
 	// Setup shaders & geometry
@@ -148,7 +147,7 @@ void GLcleanup() {
 glm::vec3 myVec3;
 float testval = -0.8f;
 
-void GLrender(double currentTime, bool exercise1, bool exercise2a, bool exercise2b, bool exercise3) {
+void GLrender(double currentTime, bool exercise1, bool exercise2a, bool exercise2b, bool exercise3, int width, int height) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	RV::_modelView = glm::mat4(1.f);
@@ -179,15 +178,6 @@ void GLrender(double currentTime, bool exercise1, bool exercise2a, bool exercise
 	//MyFirstShader::myRenderCode(currentTime);
 	//Cube::drawCube();
 
-	//Travelling X Camera
-	testval = testval + 0.01f;
-	if (testval > 0.85f)
-		testval = -0.85f;
-	//myVec3 = glm::vec3(0.f + 4.0f*testval, 2.0f, 0.0f);
-	//glm::mat4 trans = glm::translate(glm::mat4(1.0f), myVec3);
-
-	RV::panv[0] = 4.0f*testval;
-
 	//Rotation
 	//RV::rota[1] = 10.0f*sin(currentTime);
 
@@ -195,15 +185,30 @@ void GLrender(double currentTime, bool exercise1, bool exercise2a, bool exercise
 	//RV::panv[2] = 10.0f*sin(currentTime) - 30.0f;
 
 	// Handle keys
-	if (exercise1)
+	if (exercise1) {
+		float scale = 500.f;
+		RV::_projection = glm::ortho(-(float)width / scale, (float)width / scale, -(float)height / scale, (float)height / scale, RV::zNear, RV::zFar);
+		//Travelling X Camera
+		testval = testval + 0.01f;
+		if (testval > 0.85f)
+			testval = -0.85f;
+		RV::panv[0] = 4.0f*testval;
 		Cube::drawExercise1(currentTime);
-	if (exercise2a)
+	}
+
+	if (exercise2a) {
+		RV::_projection = glm::perspective(RV::FOV, (float)width / (float)height, RV::zNear, RV::zFar);
 		Cube::drawExercise2a(currentTime);
-	if (exercise2b)
+	}
+		
+	if (exercise2b) {
 		Cube::drawExercise2b(currentTime);
-	if (exercise3)
+	}
+		
+	if (exercise3) {
 		Cube::drawExercise3(currentTime);
-	
+	}
+
 	ImGui::Render();
 }
 
