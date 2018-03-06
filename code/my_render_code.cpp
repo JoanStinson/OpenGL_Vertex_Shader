@@ -111,7 +111,7 @@ void GLinit(int width, int height) {
 
 	//Rotate Camera
 	//RV::rota[0] = 0.5f;
-	RV::rota[1] = 0.05f;
+	RV::rota[1] = 0.041f;
 
 	//Translate Camera
 	RV::panv[1] = -1.0f;
@@ -911,12 +911,12 @@ namespace Cube {
 						   //1---------2
 	glm::vec3 verts[] = {
 		glm::vec3(-halfW, -halfW, -halfW),//0
-		glm::vec3(-halfW+0.05f, -halfW,  halfW),//1
-		glm::vec3(halfW-0.05f, -halfW,  halfW),//2
+		glm::vec3(-halfW - 0.05f, -halfW,  halfW),//1
+		glm::vec3(halfW + 0.05f, -halfW,  halfW),//2
 		glm::vec3(halfW, -halfW, -halfW),//3
 		glm::vec3(-halfW,  halfW, -halfW),//4
-		glm::vec3(-halfW + 0.05f,  halfW,  halfW),//5
-		glm::vec3(halfW - 0.05f,  halfW,  halfW),//6
+		glm::vec3(-halfW - 0.05f,  halfW,  halfW),//5
+		glm::vec3(halfW + 0.05f,  halfW,  halfW),//6
 		glm::vec3(halfW,  halfW, -halfW)//7
 	};
 	glm::vec3 norms[] = {
@@ -1068,80 +1068,51 @@ void main() {\n\
 		///Primer Cub---------------------------------------------------------------------
 		// Scale
 		glm::mat4 scale = glm::scale(glm::mat4(), glm::vec3(0.5f, 0.5f, 0.5f));
-		//scale2 = glm::scale2(glm::mat4(), glm::vec3(2.f, 0.5f, 0.5f));
-
-		// Rotate
-		//float rot = 15.0f * sin(currentTime);
-		//glm::mat4 rotate = glm::rotate(glm::mat4(), rot, glm::vec3(0.0f, 1.0f, 0.0f));
-
+	
 		// Translate
 		glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 2.0f));
-		//glm::mat4 trans2 = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.0f, 3.0f));
-		//objMat =  trans * rotate * scale;
 
 		objMat = trans * scale; // cambiem l'ordre per rotar al voltant
 
-								//float red = 0.5f + 0.5f*sin(3.0f*currentTime);
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
 		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 1.0f, 0.0f, 0.0f, 0.0f); //change between red and black
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.65f, 0.5f, 0.5f));
-
-		// Rotate
-		//float rot = 15.0f * sin(currentTime);
-		//glm::mat4 rotate = glm::rotate(glm::mat4(), rot, glm::vec3(0.0f, 1.0f, 0.0f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 1.0f));
-		//glm::mat4 trans2 = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.0f, 3.0f));
-		//objMat =  trans * rotate * scale;
 
 		objMat = trans * scale; // cambiem l'ordre per rotar al voltant
 
-								//float red = 0.5f + 0.5f*sin(3.0f*currentTime);
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
 		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.75f, 0.0f, 0.0f, 0.0f); //change between red and black
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.8f, 0.5f, 0.5f));
-
-		// Rotate
-		//float rot = 15.0f * sin(currentTime);
-		//glm::mat4 rotate = glm::rotate(glm::mat4(), rot, glm::vec3(0.0f, 1.0f, 0.0f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 0.0f));
-		//glm::mat4 trans2 = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.0f, 3.0f));
-		//objMat =  trans * rotate * scale;
-
+		
 		objMat = trans * scale; // cambiem l'ordre per rotar al voltant
 
-								//float red = 0.5f + 0.5f*sin(3.0f*currentTime);
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
 		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.5f, 0.0f, 0.0f, 0.0f); //change between red and black
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.95f, 0.5f, 0.5f));
-
-		// Rotate
-		//float rot = 15.0f * sin(currentTime);
-		//glm::mat4 rotate = glm::rotate(glm::mat4(), rot, glm::vec3(0.0f, 1.0f, 0.0f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -1.0f));
-		//glm::mat4 trans2 = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.0f, 3.0f));
-		//objMat =  trans * rotate * scale;
 
 		objMat = trans * scale; // cambiem l'ordre per rotar al voltant
 
-								//float red = 0.5f + 0.5f*sin(3.0f*currentTime);
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
 		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.25f, 0.0f, 0.0f, 0.0f); //change between red and black
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
@@ -1150,82 +1121,53 @@ void main() {\n\
 		///Primer Cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.5f, 0.5f, 0.5f));
-		//scale2 = glm::scale2(glm::mat4(), glm::vec3(2.f, 0.5f, 0.5f));
-
-		// Rotate
-		//float rot = 15.0f * sin(currentTime);
-		//glm::mat4 rotate = glm::rotate(glm::mat4(), rot, glm::vec3(0.0f, 1.0f, 0.0f));
-
+		
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 2.0f));
-		//glm::mat4 trans2 = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.0f, 3.0f));
-		//objMat =  trans * rotate * scale;
 
 		objMat = trans * scale; // cambiem l'ordre per rotar al voltant
 
-								//float red = 0.5f + 0.5f*sin(3.0f*currentTime);
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 1.0f, 0.0f, 0.0f, 0.0f); //change between red and black
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 1.0f, 0.0f, 0.0f); //change between red and black
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.55f , 0.5f , 0.5f));
-
-		// Rotate
-		//float rot = 15.0f * sin(currentTime);
-		//glm::mat4 rotate = glm::rotate(glm::mat4(), rot, glm::vec3(0.0f, 1.0f, 0.0f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.45f , 0.5f , 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 1.0f));
-		//glm::mat4 trans2 = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.0f, 3.0f));
-		//objMat =  trans * rotate * scale;
 
 		objMat = trans * scale; // cambiem l'ordre per rotar al voltant
 
-		//float red = 0.5f + 0.5f*sin(3.0f*currentTime);
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.75f , 0.0f, 0.0f, 0.0f); //change between red and black
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f , 0.75f, 0.0f, 0.0f); //change between red and black
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.6f, 0.5f, 0.5f));
-
-		// Rotate
-		//float rot = 15.0f * sin(currentTime);
-		//glm::mat4 rotate = glm::rotate(glm::mat4(), rot, glm::vec3(0.0f, 1.0f, 0.0f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 0.0f));
-		//glm::mat4 trans2 = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.0f, 3.0f));
-		//objMat =  trans * rotate * scale;
 
 		objMat = trans * scale; // cambiem l'ordre per rotar al voltant
 
-		//float red = 0.5f + 0.5f*sin(3.0f*currentTime);
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.5f, 0.0f, 0.0f, 0.0f); //change between red and black
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.5f, 0.0f, 0.0f); //change between red and black
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.65f, 0.5f, 0.5f));
-
-		// Rotate
-		//float rot = 15.0f * sin(currentTime);
-		//glm::mat4 rotate = glm::rotate(glm::mat4(), rot, glm::vec3(0.0f, 1.0f, 0.0f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -1.0f));
-		//glm::mat4 trans2 = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.0f, 3.0f));
-		//objMat =  trans * rotate * scale;
 
 		objMat = trans * scale; // cambiem l'ordre per rotar al voltant
 
-		//float red = 0.5f + 0.5f*sin(3.0f*currentTime);
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.25f, 0.0f, 0.0f, 0.0f); //change between red and black
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.25f, 0.0f, 0.0f); //change between red and black
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		////Tercera Fila-----------------------------------------------------------------------------------------
@@ -1233,82 +1175,53 @@ void main() {\n\
 		///Primer Cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.5f, 0.5f, 0.5f));
-		//scale2 = glm::scale2(glm::mat4(), glm::vec3(2.f, 0.5f, 0.5f));
-
-		// Rotate
-		//float rot = 15.0f * sin(currentTime);
-		//glm::mat4 rotate = glm::rotate(glm::mat4(), rot, glm::vec3(0.0f, 1.0f, 0.0f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 2.0f));
-		//glm::mat4 trans2 = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.0f, 3.0f));
-		//objMat =  trans * rotate * scale;
 
 		objMat = trans * scale; // cambiem l'ordre per rotar al voltant
 
-								//float red = 0.5f + 0.5f*sin(3.0f*currentTime);
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 1.0f, 0.0f, 0.0f, 0.0f); //change between red and black
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 1.0f, 0.0f); //change between red and black
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.55f, 0.5f, 0.5f));
-
-		// Rotate
-		//float rot = 15.0f * sin(currentTime);
-		//glm::mat4 rotate = glm::rotate(glm::mat4(), rot, glm::vec3(0.0f, 1.0f, 0.0f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 1.0f));
-		//glm::mat4 trans2 = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.0f, 3.0f));
-		//objMat =  trans * rotate * scale;
 
 		objMat = trans * scale; // cambiem l'ordre per rotar al voltant
 
-								//float red = 0.5f + 0.5f*sin(3.0f*currentTime);
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.75f, 0.0f, 0.0f, 0.0f); //change between red and black
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 0.75f, 0.0f); //change between red and black
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.6f, 0.5f, 0.5f));
-
-		// Rotate
-		//float rot = 15.0f * sin(currentTime);
-		//glm::mat4 rotate = glm::rotate(glm::mat4(), rot, glm::vec3(0.0f, 1.0f, 0.0f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 0.0f));
-		//glm::mat4 trans2 = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.0f, 3.0f));
-		//objMat =  trans * rotate * scale;
-
+	
 		objMat = trans * scale; // cambiem l'ordre per rotar al voltant
 
-								//float red = 0.5f + 0.5f*sin(3.0f*currentTime);
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.5f, 0.0f, 0.0f, 0.0f); //change between red and black
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 0.5f, 0.0f); //change between red and black
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.65f, 0.5f, 0.5f));
-
-		// Rotate
-		//float rot = 15.0f * sin(currentTime);
-		//glm::mat4 rotate = glm::rotate(glm::mat4(), rot, glm::vec3(0.0f, 1.0f, 0.0f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -1.0f));
-		//glm::mat4 trans2 = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.0f, 3.0f));
-		//objMat =  trans * rotate * scale;
 
 		objMat = trans * scale; // cambiem l'ordre per rotar al voltant
 
-								//float red = 0.5f + 0.5f*sin(3.0f*currentTime);
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.25f, 0.0f, 0.0f, 0.0f); //change between red and black
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 0.25f, 0.0f); //change between red and black
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		//--------------------------------------------------------------------------------
