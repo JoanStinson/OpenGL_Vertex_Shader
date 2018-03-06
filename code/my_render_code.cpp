@@ -119,7 +119,7 @@ void GLinit(int width, int height) {
 	// Perspective
 	//RV::_projection = glm::perspective(RV::FOV, (float)width / (float)height, RV::zNear, RV::zFar);
 
-	// Orthogonal
+	// Orthonormal
 	float scale = 500.f;
 	RV::_projection = glm::ortho(-(float)width/scale, (float)width/scale, -(float)height/scale, (float)height/scale, RV::zNear, RV::zFar);
 
