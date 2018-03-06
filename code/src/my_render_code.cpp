@@ -26,7 +26,10 @@ namespace Cube {
 	void cleanupCube();
 	void updateCube(const glm::mat4& transform);
 	void drawCube();
-	void draw2Cubes(double currentTime);
+	void drawExercise1(double currentTime);
+	void drawExercise2a(double currentTime);
+	void drawExercise2b(double currentTime);
+	void drawExercise3(double currentTime);
 }
 
 namespace MyFirstShader {
@@ -97,14 +100,13 @@ void GLmousecb(MouseEvent ev) {
 	RV::prevMouse.lasty = ev.posy;
 }
 
-void GLinit(int width, int height) {
+void GLinit(int width, int height, bool exercise1, bool exercise2a, bool exercise2b, bool exercise3) {
 	glViewport(0, 0, width, height);
 	glClearColor(0.2f, 0.2f, 0.2f, 1.f);
 	glClearDepth(1.f);
 	glDepthFunc(GL_LEQUAL);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
-
 
 	//Zoom Camera
 	//RV::panv[2] = 10.0f;
@@ -117,12 +119,15 @@ void GLinit(int width, int height) {
 	RV::panv[1] = -1.0f;
 
 	// Perspective
-	//RV::_projection = glm::perspective(RV::FOV, (float)width / (float)height, RV::zNear, RV::zFar);
+	//if (exercise2a || exercise2b || exercise3)
+		//RV::_projection = glm::perspective(RV::FOV, (float)width / (float)height, RV::zNear, RV::zFar);
 
 	// Orthonormal
-	float scale = 500.f;
-	RV::_projection = glm::ortho(-(float)width/scale, (float)width/scale, -(float)height/scale, (float)height/scale, RV::zNear, RV::zFar);
-
+	//if (exercise1) {
+		float scale = 500.f;
+		RV::_projection = glm::ortho(-(float)width / scale, (float)width / scale, -(float)height / scale, (float)height / scale, RV::zNear, RV::zFar);
+	//}
+	
 	// Setup shaders & geometry
 	Box::setupCube();
 	Axis::setupAxis();
@@ -136,15 +141,14 @@ void GLcleanup() {
 	Box::cleanupCube();
 	Axis::cleanupAxis();
 	//Cube::cleanupCube();
-
-
 	//MyFirstShader::myInitCode();
 	Cube::cleanupCube();
 }
-glm::vec3 myVec3;
 
+glm::vec3 myVec3;
 float testval = -0.8f;
-void GLrender(double currentTime) {
+
+void GLrender(double currentTime, bool exercise1, bool exercise2a, bool exercise2b, bool exercise3) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	RV::_modelView = glm::mat4(1.f);
@@ -175,7 +179,6 @@ void GLrender(double currentTime) {
 	//MyFirstShader::myRenderCode(currentTime);
 	//Cube::drawCube();
 
-	
 	//Travelling X Camera
 	testval = testval + 0.01f;
 	if (testval > 0.85f)
@@ -191,11 +194,18 @@ void GLrender(double currentTime) {
 	//Zoom
 	//RV::panv[2] = 10.0f*sin(currentTime) - 30.0f;
 
-	Cube::draw2Cubes(currentTime);
-
+	// Handle keys
+	if (exercise1)
+		Cube::drawExercise1(currentTime);
+	if (exercise2a)
+		Cube::drawExercise2a(currentTime);
+	if (exercise2b)
+		Cube::drawExercise2b(currentTime);
+	if (exercise3)
+		Cube::drawExercise3(currentTime);
+	
 	ImGui::Render();
 }
-
 
 //////////////////////////////////// COMPILE AND LINK
 GLuint compileShader(const char* shaderStr, GLenum shaderType, const char* name = "") {
@@ -1039,7 +1049,7 @@ void main() {\n\
 		glDisable(GL_PRIMITIVE_RESTART);
 	}
 	float testval = 0.f;
-	void draw2Cubes(double currentTime) {
+	void drawExercise1(double currentTime) {
 		glEnable(GL_PRIMITIVE_RESTART);
 		glBindVertexArray(cubeVao);
 		glUseProgram(cubeProgram);
@@ -1227,6 +1237,15 @@ void main() {\n\
 		glUseProgram(0);
 		glBindVertexArray(0);
 		glDisable(GL_PRIMITIVE_RESTART);
+	}
+
+	void drawExercise2a(double currentTime) {
+	}
+
+	void drawExercise2b(double currentTime) {
+	}
+
+	void drawExercise3(double currentTime) {
 	}
 
 

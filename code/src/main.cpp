@@ -7,7 +7,7 @@
 
 #include "GL_framework.h"
 
-
+bool exercise1, exercise2a, exercise2b, exercise3;
 /*extern void PhysicsInit();
 extern void PhysicsUpdate(float dt);
 extern void PhysicsCleanup();*/
@@ -15,9 +15,9 @@ extern void GUI();
 
 extern void GLmousecb(MouseEvent ev);
 extern void GLResize(int width, int height);
-extern void GLinit(int width, int height);
+extern void GLinit(int width, int height, bool exercise1, bool exercise2a, bool exercise2b, bool exercise3);
 extern void GLcleanup();
-extern void GLrender(double currentTime);
+extern void GLrender(double currentTime, bool exercise1, bool exercise2a, bool exercise2b, bool exercise3);
 
 
 extern void myRenderCode(double currentTime);
@@ -87,7 +87,7 @@ int main(int argc, char** argv) {
 	int display_w, display_h;
 	SDL_GL_GetDrawableSize(mainwindow, &display_w, &display_h);
 	// Init scene
-	GLinit(display_w, display_h);
+	GLinit(display_w, display_h, exercise1, exercise2a, exercise2b, exercise3);
 	//PhysicsInit();
 
 	//myInitCode();
@@ -101,14 +101,31 @@ int main(int argc, char** argv) {
 		while (SDL_PollEvent(&eve)) {
 			ImGui_ImplSdlGL3_ProcessEvent(&eve);
 			switch (eve.type) {
-			case SDL_WINDOWEVENT:
-				if (eve.window.event == SDL_WINDOWEVENT_RESIZED) {
-					GLResize(eve.window.data1, eve.window.data2);
-				}
-				break;
-			case SDL_QUIT:
-				quit_app = true;
-				break;
+				case SDL_WINDOWEVENT:
+					if (eve.window.event == SDL_WINDOWEVENT_RESIZED) {
+						GLResize(eve.window.data1, eve.window.data2);
+					}
+					break;
+				case SDL_QUIT:
+					quit_app = true;
+					break;
+
+				case SDL_KEYDOWN:
+					if (eve.key.keysym.scancode == SDL_SCANCODE_1) {
+						exercise1 = true;
+					}
+					if (eve.key.keysym.scancode == SDL_SCANCODE_2) {
+						exercise2a = true;
+						exercise2b = true; //TODO ficarho a true despres de uns segons i el 2a a false
+					}
+					if (eve.key.keysym.scancode == SDL_SCANCODE_3) {
+						exercise3 = true;
+					}
+					if (eve.key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
+						quit_app = true;
+					}
+					break;
+
 			}
 		}
 		ImGui_ImplSdlGL3_NewFrame(mainwindow);
@@ -129,7 +146,7 @@ int main(int argc, char** argv) {
 
 
 		double currentTime = (double)SDL_GetTicks() / 1000.0;
-		GLrender(currentTime);
+		GLrender(currentTime, exercise1, exercise2a, exercise2b, exercise3);
 		
 		//double currentTime = (double) SDL_GetTicks() / 1000.0;
 		//myRenderCode(currentTime);
