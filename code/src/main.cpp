@@ -120,10 +120,16 @@ int main(int argc, char** argv) {
 					if (eve.key.keysym.scancode == SDL_SCANCODE_2) {
 						exercise1 = false;
 						exercise2a = true;
-						exercise2b = true; //TODO ficarho a true despres de uns segons i el 2a a false
+						exercise2b = false;
 						exercise3 = false;
 					}
 					if (eve.key.keysym.scancode == SDL_SCANCODE_3) {
+						exercise1 = false;
+						exercise2a = false;
+						exercise2b = true;
+						exercise3 = false;
+					}
+					if (eve.key.keysym.scancode == SDL_SCANCODE_4) {
 						exercise1 = false;
 						exercise2a = false;
 						exercise2b = false;
