@@ -1,6 +1,8 @@
 #include <GL\glew.h>
 #include <glm\gtc\type_ptr.hpp>
 #include <glm\gtc\matrix_transform.hpp>
+#include <imgui\imgui.h>
+#include <imgui\imgui_impl_sdl_gl3.h>
 #include <cstdio>
 #include <cassert>
 #include <iostream>
@@ -1938,4 +1940,37 @@ namespace MyFirstShader {
 	}
 
 
+}
+
+bool show_test_window = false;
+void GUI(bool exercise1, bool exercise2a, bool exercise2b, bool exercise3) {
+	bool show = true;
+	if (exercise1) 
+		ImGui::Begin("1) Lateral Travelling", &show, 0);
+	else if (exercise2a)
+		ImGui::Begin("2a) Object Close-up", &show, 0);
+	else if (exercise2b)
+		ImGui::Begin("2b) FOV Increase", &show, 0);
+	else if (exercise3)
+		ImGui::Begin("3) Inverse Dolly Effect", &show, 0);
+	else ImGui::Begin("Welcome!", &show, 0);
+
+	{
+		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);//FrameRate
+		ImGui::Separator();
+		if (ImGui::TreeNode("Controls")) {
+			ImGui::Text("Key 1: Lateral Travelling");
+			ImGui::Text("Key 2: Object Close-up & FOV Increase");
+			ImGui::Text("Key 3: Inverse Dolly Effect");
+			ImGui::TreePop();
+		}
+	}
+
+	ImGui::End();
+
+	// Example code -- ImGui test window. Most of the sample code is in ImGui::ShowTestWindow()
+	if (show_test_window) {
+		ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiSetCond_FirstUseEver);
+		ImGui::ShowTestWindow(&show_test_window);
+	}
 }

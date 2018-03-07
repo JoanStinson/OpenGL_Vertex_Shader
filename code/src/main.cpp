@@ -11,7 +11,7 @@ bool exercise1, exercise2a, exercise2b, exercise3;
 /*extern void PhysicsInit();
 extern void PhysicsUpdate(float dt);
 extern void PhysicsCleanup();*/
-extern void GUI();
+extern void GUI(bool exercise1, bool exercise2a, bool exercise2b, bool exercise3);
 
 extern void GLmousecb(MouseEvent ev);
 extern void GLResize(int width, int height);
@@ -63,7 +63,7 @@ int main(int argc, char** argv) {
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
-	mainwindow = SDL_CreateWindow("GL_framework", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+	mainwindow = SDL_CreateWindow("AA1. Camera. The inverse dolly effect.", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		800, 600, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 		if (!mainwindow) { /* Die if creation failed */
 			SDL_Log("Couldn't create SDL window: %s", SDL_GetError());
@@ -147,7 +147,7 @@ int main(int argc, char** argv) {
 		ImGuiIO& io = ImGui::GetIO();
 		
 		
-		GUI();
+		GUI(exercise1, exercise2a, exercise2b, exercise3);
 		//PhysicsUpdate((float)expected_frametime);
 		if(!io.WantCaptureMouse) {
 			MouseEvent ev = {io.MousePos.x, io.MousePos.y, 
