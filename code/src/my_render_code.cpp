@@ -194,17 +194,23 @@ void GLrender(double currentTime, bool exercise1, bool exercise2a, bool exercise
 		if (testval > 0.85f)
 			testval = -0.85f;
 		RV::panv[2] = -15.0f;
-		std::cout << RV::panv[2] << std::endl;
+		RV::panv[1] = -1.0f;
+		std::cout << RV::panv[1] << std::endl;
 		RV::panv[0] = 4.0f*testval;
 		Cube::drawExercise1(currentTime);
 	}
 
 	if (exercise2a) {
-		RV::_projection = glm::perspective(RV::FOV, (float)width / (float)height, 0.5f, RV::zFar);
+		RV::_projection = glm::perspective(RV::FOV, (float)width / (float)height, 0.1f, RV::zFar);
 		// Screen Centered
 		RV::panv[0] = 0.0f;
+
+		//Rotate
+		RV::panv[1] = -0.15f;
+
 		// Zoom 
-		RV::panv[2] = 3.0f*sin(currentTime) - 2.0f;
+		RV::panv[2] = 0.7f*sin(currentTime) - 3.5f;
+
 		std::cout << RV::panv[2] << std::endl;
 		Cube::drawExercise2a(currentTime);
 	}

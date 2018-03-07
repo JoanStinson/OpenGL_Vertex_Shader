@@ -1,5 +1,5 @@
 ﻿  my_render_code.cpp
-c:\users\ocaminal\documents\github\practiquesinfografica\code\src\my_render_code.cpp(207): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\ocaminal\documents\github\practiquesinfografica\code\src\my_render_code.cpp(214): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   GL_framework.vcxproj -> C:\Users\ocaminal\Documents\GitHub\PractiquesInfoGrafica\x64\Debug\GL_framework.exe
   GL_framework.vcxproj -> C:\Users\ocaminal\Documents\GitHub\PractiquesInfoGrafica\x64\Debug\GL_framework.pdb (Partial PDB)
   0 File(s) copied
