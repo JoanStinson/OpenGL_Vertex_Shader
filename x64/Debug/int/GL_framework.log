@@ -1,14 +1,9 @@
-﻿  render_prims.cpp
-  physics.cpp
-  my_render_code.cpp
-c:\users\freee\documents\repos\practiquesinfografica\code\src\my_render_code.cpp(212): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  main.cpp
-  imgui_impl_sdl_gl3.cpp
-  imgui_draw.cpp
-  imgui_demo.cpp
-  imgui.cpp
-  Generating Code...
-     Creating library C:\Users\Freee\Documents\repos\PractiquesInfoGrafica\x64\Debug\GL_framework.lib and object C:\Users\Freee\Documents\repos\PractiquesInfoGrafica\x64\Debug\GL_framework.exp
-  GL_framework.vcxproj -> C:\Users\Freee\Documents\repos\PractiquesInfoGrafica\x64\Debug\GL_framework.exe
+﻿  my_render_code.cpp
+c:\users\ocaminal\documents\github\practiquesinfografica\code\src\my_render_code.cpp(212): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\ocaminal\documents\github\practiquesinfografica\code\src\my_render_code.cpp(219): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\ocaminal\documents\github\practiquesinfografica\code\src\my_render_code.cpp(235): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\ocaminal\documents\github\practiquesinfografica\code\src\my_render_code.cpp(244): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  GL_framework.vcxproj -> C:\Users\ocaminal\Documents\GitHub\PractiquesInfoGrafica\x64\Debug\GL_framework.exe
+  GL_framework.vcxproj -> C:\Users\ocaminal\Documents\GitHub\PractiquesInfoGrafica\x64\Debug\GL_framework.pdb (Partial PDB)
   0 File(s) copied
   0 File(s) copied

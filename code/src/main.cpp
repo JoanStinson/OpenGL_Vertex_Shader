@@ -117,25 +117,25 @@ int main(int argc, char** argv) {
 						exercise2b = false;
 						exercise3 = false;
 					}
-					if (eve.key.keysym.scancode == SDL_SCANCODE_2) {
+					else if (eve.key.keysym.scancode == SDL_SCANCODE_2) {
 						exercise1 = false;
 						exercise2a = true;
 						exercise2b = false;
 						exercise3 = false;
 					}
-					if (eve.key.keysym.scancode == SDL_SCANCODE_3) {
+					else if (eve.key.keysym.scancode == SDL_SCANCODE_3) {
 						exercise1 = false;
 						exercise2a = false;
 						exercise2b = true;
 						exercise3 = false;
 					}
-					if (eve.key.keysym.scancode == SDL_SCANCODE_4) {
+					else if (eve.key.keysym.scancode == SDL_SCANCODE_4) {
 						exercise1 = false;
 						exercise2a = false;
 						exercise2b = false;
 						exercise3 = true;
 					}
-					if (eve.key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
+					else if (eve.key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
 						quit_app = true;
 					}
 					break;
