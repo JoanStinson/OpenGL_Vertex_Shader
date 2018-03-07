@@ -1,8 +1,12 @@
 ﻿  my_render_code.cpp
-c:\users\freee\documents\repos\practiquesinfografica\code\src\my_render_code.cpp(214): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\freee\documents\repos\practiquesinfografica\code\src\my_render_code.cpp(221): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\freee\documents\repos\practiquesinfografica\code\src\my_render_code.cpp(237): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\freee\documents\repos\practiquesinfografica\code\src\my_render_code.cpp(246): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  GL_framework.vcxproj -> C:\Users\Freee\Documents\repos\PractiquesInfoGrafica\x64\Debug\GL_framework.exe
+c:\users\ocaminal\documents\github\practiquesinfografica\code\src\my_render_code.cpp(214): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\ocaminal\documents\github\practiquesinfografica\code\src\my_render_code.cpp(221): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\ocaminal\documents\github\practiquesinfografica\code\src\my_render_code.cpp(237): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\ocaminal\documents\github\practiquesinfografica\code\src\my_render_code.cpp(246): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  render.cpp
+  GL_framework.vcxproj -> C:\Users\ocaminal\Documents\GitHub\PractiquesInfoGrafica\x64\Debug\GL_framework.exe
+  GL_framework.vcxproj -> C:\Users\ocaminal\Documents\GitHub\PractiquesInfoGrafica\x64\Debug\GL_framework.pdb (Partial PDB)
   0 File(s) copied
   0 File(s) copied

@@ -1956,8 +1956,8 @@ void GUI(bool exercise1, bool exercise2a, bool exercise2b, bool exercise3) {
 	else ImGui::Begin("Welcome!", &show, 0);
 
 	{
-		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);//FrameRate
-		ImGui::Separator();
+		//ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);//FrameRate
+		//ImGui::Separator();
 		if (ImGui::TreeNode("Controls")) {
 			ImGui::Text("Key 1: Lateral Travelling");
 			ImGui::Text("Key 2: Object Close-up & FOV Increase");
