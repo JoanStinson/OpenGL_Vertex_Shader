@@ -1129,13 +1129,30 @@ void main() {\n\
 		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 1.0f, 1.0f, 1.0f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
+		///Travelling Cub---------------------------------------------------------------------
+		// Scale
+		glm::mat4 scale = glm::scale(glm::mat4(), glm::vec3(0.2f, 0.2f, 0.2f));
+
+		// Translate
+		testval = testval + 0.055f;
+		if (testval > 2.2f)
+			testval = -2.2f;
+		
+		glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(-1.0f*testval, 0.10f, 3.0f));
+
+		objMat = trans * scale;
+
+		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 1.0f, 1.0f, 0.0f);
+		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
+
 		////Primera Fila-----------------------------------------------------------------------------------------
 		///Primer Cub---------------------------------------------------------------------
 		// Scale
-		glm::mat4 scale = glm::scale(glm::mat4(), glm::vec3(0.5f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.5f, 0.5f, 0.5f));
 	
 		// Translate
-		glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 2.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 2.0f));
 
 		objMat = trans * scale;
 
@@ -1145,7 +1162,7 @@ void main() {\n\
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 0.0f));
@@ -1158,7 +1175,7 @@ void main() {\n\
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -2.0f));
@@ -1171,7 +1188,7 @@ void main() {\n\
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -4.0f));
@@ -1198,7 +1215,7 @@ void main() {\n\
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.45f , 0.5f , 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.45f , 1.0f , 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 0.0f));
@@ -1211,7 +1228,7 @@ void main() {\n\
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -2.0f));
@@ -1224,7 +1241,7 @@ void main() {\n\
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -4.0f));
@@ -1251,7 +1268,7 @@ void main() {\n\
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 0.0f));
@@ -1264,7 +1281,7 @@ void main() {\n\
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -2.0f));
@@ -1277,7 +1294,7 @@ void main() {\n\
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -4.0f));
@@ -1335,7 +1352,7 @@ void main() {\n\
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 0.0f));
@@ -1348,7 +1365,7 @@ void main() {\n\
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -2.0f));
@@ -1361,7 +1378,7 @@ void main() {\n\
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -4.0f));
@@ -1388,7 +1405,7 @@ void main() {\n\
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 0.0f));
@@ -1401,7 +1418,7 @@ void main() {\n\
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -2.0f));
@@ -1414,7 +1431,7 @@ void main() {\n\
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -4.0f));
@@ -1441,7 +1458,7 @@ void main() {\n\
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 0.0f));
@@ -1454,7 +1471,7 @@ void main() {\n\
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -2.0f));
@@ -1467,7 +1484,7 @@ void main() {\n\
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -4.0f));
@@ -1525,7 +1542,7 @@ void main() {\n\
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 0.0f));
@@ -1538,7 +1555,7 @@ void main() {\n\
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -2.0f));
@@ -1551,7 +1568,7 @@ void main() {\n\
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -4.0f));
@@ -1578,7 +1595,7 @@ void main() {\n\
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 0.0f));
@@ -1591,7 +1608,7 @@ void main() {\n\
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -2.0f));
@@ -1604,7 +1621,7 @@ void main() {\n\
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -4.0f));
@@ -1631,7 +1648,7 @@ void main() {\n\
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 0.0f));
@@ -1644,7 +1661,7 @@ void main() {\n\
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -2.0f));
@@ -1657,7 +1674,7 @@ void main() {\n\
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -4.0f));
@@ -1715,7 +1732,7 @@ void main() {\n\
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 0.0f));
@@ -1728,7 +1745,7 @@ void main() {\n\
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -2.0f));
@@ -1741,7 +1758,7 @@ void main() {\n\
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -4.0f));
@@ -1768,7 +1785,7 @@ void main() {\n\
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 0.0f));
@@ -1781,7 +1798,7 @@ void main() {\n\
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -2.0f));
@@ -1794,7 +1811,7 @@ void main() {\n\
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -4.0f));
@@ -1821,7 +1838,7 @@ void main() {\n\
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 0.0f));
@@ -1834,7 +1851,7 @@ void main() {\n\
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -2.0f));
@@ -1847,7 +1864,7 @@ void main() {\n\
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
-		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
+		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -4.0f));
@@ -1863,7 +1880,7 @@ void main() {\n\
 		glBindVertexArray(0);
 		glDisable(GL_PRIMITIVE_RESTART);
 	}
-
+	
 }
 
 ////////////////////////////////////////////////// MY FIRST SHADER
