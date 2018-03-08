@@ -116,6 +116,7 @@ void GLinit(int width, int height, bool exercise1, bool exercise2a, bool exercis
 	//Rotate Camera
 	//RV::rota[0] = 0.5f;
 	RV::rota[1] = 0.041f;
+	
 
 	//Translate Camera
 	RV::panv[1] = -1.0f;
@@ -188,26 +189,33 @@ void GLrender(double currentTime, bool exercise1, bool exercise2a, bool exercise
 	//RV::panv[2] = 10.0f*sin(currentTime) - 30.0f;
 
 	// Handle keys
+	///Exercise1-------------------------------------------------------------
 	if (exercise1) {
 		float scale = 500.f;
 		RV::_projection = glm::ortho(-(float)width / scale, (float)width / scale, -(float)height / scale, (float)height / scale, RV::zNear, RV::zFar);
-		//Travelling X Camera
+		// Screen PosX
 		testval = testval + 0.01f;
 		if (testval > 0.85f)
 			testval = -0.85f;
-		RV::panv[2] = -15.0f;
-		RV::panv[1] = -1.0f;
-		std::cout << RV::panv[1] << std::endl;
 		RV::panv[0] = 4.0f*testval;
+
+		// Screen PosY
+		RV::panv[1] = -1.0f;
+
+		// Zoom
+		RV::panv[2] = -15.0f;
+		std::cout << RV::panv[1] << std::endl;
+		
 		Cube::drawExercise1(currentTime);
 	}
 
+	///Exercise2a------------------------------------------------------------
 	else if (exercise2a) {
 		RV::_projection = glm::perspective(RV::FOV, (float)width / (float)height, 0.1f, RV::zFar);
-		// Screen Centered
+		// Screen PosX
 		RV::panv[0] = 0.0f;
 
-		//Rotate
+		// Screen PosY
 		RV::panv[1] = -0.15f;
 
 		// Zoom 
@@ -217,13 +225,14 @@ void GLrender(double currentTime, bool exercise1, bool exercise2a, bool exercise
 		Cube::drawExercise2a(currentTime);
 	}
 		
+	///Exercise2b------------------------------------------------------------
 	else if (exercise2b) {
 		float fov = sin(currentTime)-5.0f;
 		RV::_projection = glm::perspective(fov, (float)width / (float)height, 0.1f, RV::zFar);
-		// Screen Centered
+		// Screen PosX
 		RV::panv[0] = 0.0f;
 
-		//Rotate
+		// Screen PosY
 		RV::panv[1] = -0.15f;
 
 		// Zoom 
@@ -232,14 +241,15 @@ void GLrender(double currentTime, bool exercise1, bool exercise2a, bool exercise
 		std::cout << RV::panv[2] << std::endl;
 		Cube::drawExercise2b(currentTime);
 	}
-		
+	
+	///Exercise3-------------------------------------------------------------
 	else if (exercise3) {
 		float fov = sin(currentTime) - 5.0f;
 		RV::_projection = glm::perspective(fov, (float)width / (float)height, 0.1f, RV::zFar);
-		// Screen Centered
+		// Screen PosX
 		RV::panv[0] = 0.0f;
 
-		//Rotate
+		// Screen PosY
 		RV::panv[1] = -0.15f;
 
 		// Zoom 
@@ -966,12 +976,12 @@ namespace Cube {
 						   //1---------2
 	glm::vec3 verts[] = {
 		glm::vec3(-halfW, -halfW, -halfW),//0
-		glm::vec3(-halfW - 0.05f, -halfW,  halfW),//1
-		glm::vec3(halfW + 0.05f, -halfW,  halfW),//2
+		glm::vec3(-halfW, -halfW,  halfW),//1
+		glm::vec3(halfW, -halfW,  halfW),//2
 		glm::vec3(halfW, -halfW, -halfW),//3
 		glm::vec3(-halfW,  halfW, -halfW),//4
-		glm::vec3(-halfW - 0.05f,  halfW,  halfW),//5
-		glm::vec3(halfW + 0.05f,  halfW,  halfW),//6
+		glm::vec3(-halfW,  halfW,  halfW),//5
+		glm::vec3(halfW,  halfW,  halfW),//6
 		glm::vec3(halfW,  halfW, -halfW)//7
 	};
 	glm::vec3 norms[] = {
@@ -1138,7 +1148,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 0.0f));
 
 		objMat = trans * scale;
 
@@ -1151,7 +1161,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 0.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -2.0f));
 		
 		objMat = trans * scale;
 
@@ -1164,7 +1174,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -4.0f));
 
 		objMat = trans * scale;
 
@@ -1191,7 +1201,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f , 0.5f , 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 0.0f));
 
 		objMat = trans * scale;
 
@@ -1204,7 +1214,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 0.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -2.0f));
 
 		objMat = trans * scale;
 
@@ -1217,7 +1227,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -4.0f));
 
 		objMat = trans * scale;
 
@@ -1244,7 +1254,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 0.0f));
 
 		objMat = trans * scale;
 
@@ -1257,7 +1267,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 0.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -2.0f));
 	
 		objMat = trans * scale;
 
@@ -1270,7 +1280,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -4.0f));
 
 		objMat = trans * scale;
 
@@ -1278,7 +1288,7 @@ void main() {\n\
 		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 0.25f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
-		//--------------------------------------------------------------------------------
+		///-------------------------------------------------------------------------------
 		glUseProgram(0);
 		glBindVertexArray(0);
 		glDisable(GL_PRIMITIVE_RESTART);
@@ -1328,7 +1338,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 0.0f));
 
 		objMat = trans * scale;
 
@@ -1341,7 +1351,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 0.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -2.0f));
 
 		objMat = trans * scale;
 
@@ -1354,7 +1364,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -4.0f));
 
 		objMat = trans * scale;
 
@@ -1381,7 +1391,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 0.0f));
 
 		objMat = trans * scale;
 
@@ -1394,7 +1404,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 0.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -2.0f));
 
 		objMat = trans * scale;
 
@@ -1407,7 +1417,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -4.0f));
 
 		objMat = trans * scale;
 
@@ -1434,7 +1444,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 0.0f));
 
 		objMat = trans * scale;
 
@@ -1447,7 +1457,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 0.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -2.0f));
 
 		objMat = trans * scale;
 
@@ -1460,7 +1470,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -4.0f));
 
 		objMat = trans * scale;
 
@@ -1468,7 +1478,7 @@ void main() {\n\
 		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 0.25f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
-		//--------------------------------------------------------------------------------
+		///-------------------------------------------------------------------------------
 		glUseProgram(0);
 		glBindVertexArray(0);
 		glDisable(GL_PRIMITIVE_RESTART);
@@ -1518,7 +1528,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 0.0f));
 
 		objMat = trans * scale;
 
@@ -1531,7 +1541,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 0.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -2.0f));
 
 		objMat = trans * scale;
 
@@ -1544,7 +1554,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -4.0f));
 
 		objMat = trans * scale;
 
@@ -1571,7 +1581,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 0.0f));
 
 		objMat = trans * scale;
 
@@ -1584,7 +1594,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 0.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -2.0f));
 
 		objMat = trans * scale;
 
@@ -1597,7 +1607,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -4.0f));
 
 		objMat = trans * scale;
 
@@ -1624,7 +1634,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 0.0f));
 
 		objMat = trans * scale;
 
@@ -1637,7 +1647,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 0.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -2.0f));
 
 		objMat = trans * scale;
 
@@ -1650,7 +1660,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -4.0f));
 
 		objMat = trans * scale;
 
@@ -1658,7 +1668,7 @@ void main() {\n\
 		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 0.25f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
-		//--------------------------------------------------------------------------------
+		///-------------------------------------------------------------------------------
 		glUseProgram(0);
 		glBindVertexArray(0);
 		glDisable(GL_PRIMITIVE_RESTART);
@@ -1708,7 +1718,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 0.0f));
 
 		objMat = trans * scale;
 
@@ -1721,7 +1731,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 0.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -2.0f));
 
 		objMat = trans * scale;
 
@@ -1734,7 +1744,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -4.0f));
 
 		objMat = trans * scale;
 
@@ -1761,7 +1771,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 0.0f));
 
 		objMat = trans * scale;
 
@@ -1774,7 +1784,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 0.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -2.0f));
 
 		objMat = trans * scale;
 
@@ -1787,7 +1797,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -4.0f));
 
 		objMat = trans * scale;
 
@@ -1814,7 +1824,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 0.0f));
 
 		objMat = trans * scale;
 
@@ -1827,7 +1837,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 0.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -2.0f));
 
 		objMat = trans * scale;
 
@@ -1840,7 +1850,7 @@ void main() {\n\
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 0.5f, 0.5f));
 
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -1.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -4.0f));
 
 		objMat = trans * scale;
 
@@ -1848,13 +1858,11 @@ void main() {\n\
 		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 0.25f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
-		//--------------------------------------------------------------------------------
+		///-------------------------------------------------------------------------------
 		glUseProgram(0);
 		glBindVertexArray(0);
 		glDisable(GL_PRIMITIVE_RESTART);
 	}
-
-
 
 }
 
