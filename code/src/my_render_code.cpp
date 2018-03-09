@@ -204,7 +204,7 @@ void GLrender(double currentTime, bool exercise1, bool exercise2a, bool exercise
 
 		// Zoom
 		RV::panv[2] = -15.0f;
-		std::cout << RV::panv[1] << std::endl;
+		//std::cout << RV::panv[1] << std::endl;
 		
 		Cube::drawExercise1(currentTime);
 	}
@@ -221,7 +221,7 @@ void GLrender(double currentTime, bool exercise1, bool exercise2a, bool exercise
 		// Zoom 
 		RV::panv[2] = 0.7f*sin(currentTime) - 3.5f;
 
-		std::cout << RV::panv[2] << std::endl;
+		//std::cout << RV::panv[2] << std::endl;
 		Cube::drawExercise2a(currentTime);
 	}
 		
@@ -238,7 +238,7 @@ void GLrender(double currentTime, bool exercise1, bool exercise2a, bool exercise
 		// Zoom 
 		RV::panv[2] = -4.0f;
 
-		std::cout << RV::panv[2] << std::endl;
+		//std::cout << RV::panv[2] << std::endl;
 		Cube::drawExercise2b(currentTime);
 	}
 	
@@ -255,7 +255,7 @@ void GLrender(double currentTime, bool exercise1, bool exercise2a, bool exercise
 		// Zoom 
 		RV::panv[2] = 0.7f * sin(currentTime) - 3.4f;
 
-		std::cout << RV::panv[2] << std::endl;
+		//std::cout << RV::panv[2] << std::endl;
 		Cube::drawExercise3(currentTime);
 	}
 

@@ -94,7 +94,7 @@ int main(int argc, char** argv) {
 
 	// Setup ImGui binding
 	ImGui_ImplSdlGL3_Init(mainwindow);
-
+	float time = 0.0f;
 	bool quit_app = false;
 	while (!quit_app) {
 		SDL_Event eve;
@@ -126,12 +126,6 @@ int main(int argc, char** argv) {
 					else if (eve.key.keysym.scancode == SDL_SCANCODE_3) {
 						exercise1 = false;
 						exercise2a = false;
-						exercise2b = true;
-						exercise3 = false;
-					}
-					else if (eve.key.keysym.scancode == SDL_SCANCODE_4) {
-						exercise1 = false;
-						exercise2a = false;
 						exercise2b = false;
 						exercise3 = true;
 					}
@@ -158,10 +152,20 @@ int main(int argc, char** argv) {
 			GLmousecb(ev);
 		}
 
-
 		double currentTime = (double)SDL_GetTicks() / 1000.0;
 		GLrender(currentTime, exercise1, exercise2a, exercise2b, exercise3, display_w, display_h);
-		
+		if (exercise2a || exercise2b) time += 1.0f;
+
+		if (exercise2a && time >= 200.0f) {
+			exercise2a = false;
+			exercise2b = true;
+			time = 0.0f;
+		}
+		if (exercise2b && time >= 200.0f) {
+			exercise2b = false;
+			exercise2a = true;
+			time = 0.0f;
+		}
 		//double currentTime = (double) SDL_GetTicks() / 1000.0;
 		//myRenderCode(currentTime);
 		
