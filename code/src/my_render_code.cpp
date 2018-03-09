@@ -1134,11 +1134,11 @@ void main() {\n\
 		glm::mat4 scale = glm::scale(glm::mat4(), glm::vec3(0.2f, 0.2f, 0.2f));
 
 		// Translate
-		testval = testval + 0.055f;
-		if (testval > 2.2f)
-			testval = -2.2f;
+		testval = testval + 0.02f;
+		if (testval > 0.85f)
+			testval = -0.85f;
 		
-		glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(-1.0f*testval, 0.10f, 3.0f));
+		glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(-4.0f*testval, 0.10f, 3.0f));
 
 		objMat = trans * scale;
 
