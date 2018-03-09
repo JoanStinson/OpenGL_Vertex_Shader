@@ -3,8 +3,6 @@ c:\users\freee\documents\repos\practiquesinfografica\code\src\my_render_code.cpp
 c:\users\freee\documents\repos\practiquesinfografica\code\src\my_render_code.cpp(230): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\users\freee\documents\repos\practiquesinfografica\code\src\my_render_code.cpp(247): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\users\freee\documents\repos\practiquesinfografica\code\src\my_render_code.cpp(256): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  main.cpp
-  Generating Code...
   GL_framework.vcxproj -> C:\Users\Freee\Documents\repos\PractiquesInfoGrafica\x64\Debug\GL_framework.exe
   0 File(s) copied
   0 File(s) copied

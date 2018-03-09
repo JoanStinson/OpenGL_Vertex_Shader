@@ -1987,6 +1987,7 @@ void GUI(bool exercise1, bool exercise2a, bool exercise2b, bool exercise3) {
 			ImGui::Text("Key 1: Lateral Travelling");
 			ImGui::Text("Key 2: Object Close-up & FOV Increase");
 			ImGui::Text("Key 3: Inverse Dolly Effect");
+			ImGui::Text("Escape: Exit");
 			ImGui::TreePop();
 		}
 	}
