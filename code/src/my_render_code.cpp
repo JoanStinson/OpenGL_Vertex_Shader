@@ -114,8 +114,8 @@ void GLinit(int width, int height, bool exercise1, bool exercise2a, bool exercis
 	//RV::panv[2] = 10.0f;
 
 	//Rotate Camera
-	//RV::rota[0] = 0.5f;
-	RV::rota[1] = 0.041f;
+	//RV::rota[0] = 0.4f;
+	RV::rota[1] = 0.045f;
 	
 
 	//Translate Camera
@@ -193,6 +193,11 @@ void GLrender(double currentTime, bool exercise1, bool exercise2a, bool exercise
 	if (exercise1) {
 		float scale = 500.f;
 		RV::_projection = glm::ortho(-(float)width / scale, (float)width / scale, -(float)height / scale, (float)height / scale, RV::zNear, RV::zFar);
+
+		// Rotation
+		RV::rota[0] = 0.0f;
+		RV::rota[1] = 0.045f;
+
 		// Screen PosX
 		testval = testval + 0.01f;
 		if (testval > 0.85f)
@@ -212,6 +217,11 @@ void GLrender(double currentTime, bool exercise1, bool exercise2a, bool exercise
 	///Exercise2a------------------------------------------------------------
 	else if (exercise2a) {
 		RV::_projection = glm::perspective(RV::FOV, (float)width / (float)height, 0.1f, RV::zFar);
+
+		//Rotation
+		RV::rota[0] = 0.0f;
+		RV::rota[1] = 0.045f;
+
 		// Screen PosX
 		RV::panv[0] = 0.0f;
 
@@ -229,6 +239,11 @@ void GLrender(double currentTime, bool exercise1, bool exercise2a, bool exercise
 	else if (exercise2b) {
 		float fov = sin(currentTime)-5.0f;
 		RV::_projection = glm::perspective(fov, (float)width / (float)height, 0.1f, RV::zFar);
+
+		//Rotation
+		RV::rota[0] = 0.0f;
+		RV::rota[1] = 0.045f;
+
 		// Screen PosX
 		RV::panv[0] = 0.0f;
 
@@ -246,6 +261,11 @@ void GLrender(double currentTime, bool exercise1, bool exercise2a, bool exercise
 	else if (exercise3) {
 		float fov = sin(currentTime) - 5.0f;
 		RV::_projection = glm::perspective(fov, (float)width / (float)height, 0.1f, RV::zFar);
+
+		//Rotation
+		RV::rota[0] = 0.0f;
+		RV::rota[1] = 0.045f;
+
 		// Screen PosX
 		RV::panv[0] = 0.0f;
 
@@ -1133,123 +1153,150 @@ void main() {\n\
 		// Scale
 		glm::mat4 scale = glm::scale(glm::mat4(), glm::vec3(0.2f, 0.2f, 0.2f));
 
+		// Rotació
+		//glm::mat4 rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+
 		// Translate
-		testval = testval + 0.02f;
-		if (testval > 0.85f)
-			testval = -0.85f;
+		testval = testval + 0.009f;
+		if (testval > 0.55f)
+			testval = -0.55f;
 		
-		glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(-4.0f*testval, 0.10f, 3.0f));
+		glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(-4.0f*testval, 0.3f*sin(currentTime)+1, 3.0f));
 
 		objMat = trans * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 1.0f, 1.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 1.0f, 0.5f, 0.0f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		////Primera Fila-----------------------------------------------------------------------------------------
 		///Primer Cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.5f, 0.5f, 0.5f));
+
+		// Rotació
+		glm::mat4  rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 2.0f));
 
-		objMat = trans * scale;
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 1.0f, 0.0f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 1.0f, 1.0f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 0.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.2f, 0.25f, 0.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.75f, 0.0f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.8f, 0.8f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -2.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.4f, 0.25f, -2.0f));
 		
-		objMat = trans * scale;
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.5f, 0.0f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.6f, 0.6f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -4.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.6f, 0.25f, -4.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.25f, 0.0f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.4f, 0.4f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		////Segona Fila-----------------------------------------------------------------------------------------
 		///Primer Cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.5f, 0.5f, 0.5f));
+
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 		
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 2.0f));
 
-		objMat = trans * scale;
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 1.0f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 1.0f, 1.0f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f , 1.0f , 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 0.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-0.2f, 0.25f, 0.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f , 0.75f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f , 0.8f, 0.8f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -2.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-0.4f, 0.25f, -2.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.5f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.6f, 0.6f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -4.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-0.6f, 0.25f, -4.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.25f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.4f, 0.4f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		////Tercera Fila-----------------------------------------------------------------------------------------
@@ -1257,52 +1304,64 @@ void main() {\n\
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.5f, 0.5f, 0.5f));
 
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 2.0f));
 
-		objMat = trans * scale;
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 1.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 1.0f, 1.0f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 0.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(0.8f, 0.25f, 0.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 0.75f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.8f, 0.8f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+
 		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -2.0f));
+		trans = glm::translate(glm::mat4(), glm::vec3(0.6f, 0.25f, -2.0f));
 	
-		objMat = trans * scale;
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 0.5f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.6f, 0.6f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -4.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(0.4f, 0.25f, -4.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 0.25f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.4f, 0.4f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		///-------------------------------------------------------------------------------
@@ -1341,52 +1400,64 @@ void main() {\n\
 		// Scale
 		glm::mat4 scale = glm::scale(glm::mat4(), glm::vec3(0.5f, 0.5f, 0.5f));
 
+		// Rotació
+		glm::mat4 rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+
 		// Translate
 		glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 2.0f));
 
-		objMat = trans * scale;
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 1.0f, 0.0f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 1.0f, 1.0f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 0.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.2f, 0.25f, 0.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.75f, 0.0f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.8f, 0.8f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -2.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.4f, 0.25f, -2.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.5f, 0.0f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.6f, 0.6f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -4.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.6f, 0.25f, -4.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.25f, 0.0f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.4f, 0.4f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		////Segona Fila-----------------------------------------------------------------------------------------
@@ -1394,52 +1465,64 @@ void main() {\n\
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.5f, 0.5f, 0.5f));
 
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 2.0f));
 
-		objMat = trans * scale;
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 1.0f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 1.0f, 1.0f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 0.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-0.2f, 0.25f, 0.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.75f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.8f, 0.8f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -2.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-0.4f, 0.25f, -2.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.5f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.6f, 0.6f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -4.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-0.6f, 0.25f, -4.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.25f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.4f, 0.4f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		////Tercera Fila-----------------------------------------------------------------------------------------
@@ -1447,52 +1530,64 @@ void main() {\n\
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.5f, 0.5f, 0.5f));
 
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 2.0f));
 
-		objMat = trans * scale;
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 1.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 1.0f, 1.0f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 0.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(0.8f, 0.25f, 0.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 0.75f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.8f, 0.8f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -2.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(0.6f, 0.25f, -2.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 0.5f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.6f, 0.6f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -4.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(0.4f, 0.25f, -4.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 0.25f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.4f, 0.4f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		///-------------------------------------------------------------------------------
@@ -1531,52 +1626,64 @@ void main() {\n\
 		// Scale
 		glm::mat4 scale = glm::scale(glm::mat4(), glm::vec3(0.5f, 0.5f, 0.5f));
 
+		// Rotació
+		glm::mat4 rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+
 		// Translate
 		glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 2.0f));
 
-		objMat = trans * scale;
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 1.0f, 0.0f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 1.0f, 1.0f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 0.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.2f, 0.25f, 0.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.75f, 0.0f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.8f, 0.8f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -2.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.4f, 0.25f, -2.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.5f, 0.0f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.6f, 0.6f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -4.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.6f, 0.25f, -4.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.25f, 0.0f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.4f, 0.4f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		////Segona Fila-----------------------------------------------------------------------------------------
@@ -1584,52 +1691,64 @@ void main() {\n\
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.5f, 0.5f, 0.5f));
 
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 2.0f));
 
-		objMat = trans * scale;
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 1.0f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 1.0f, 1.0f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 0.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-0.2f, 0.25f, 0.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.75f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.8f, 0.8f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -2.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-0.4f, 0.25f, -2.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.5f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.6f, 0.6f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -4.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-0.6f, 0.25f, -4.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.25f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.4f, 0.4f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		////Tercera Fila-----------------------------------------------------------------------------------------
@@ -1637,52 +1756,64 @@ void main() {\n\
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.5f, 0.5f, 0.5f));
 
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 2.0f));
 
-		objMat = trans * scale;
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 1.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 1.0f, 1.0f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 0.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(0.8f, 0.25f, 0.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 0.75f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.8f, 0.8f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -2.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(0.6f, 0.25f, -2.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 0.5f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.6f, 0.6f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -4.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(0.4f, 0.25f, -4.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 0.25f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.4f, 0.4f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		///-------------------------------------------------------------------------------
@@ -1721,52 +1852,64 @@ void main() {\n\
 		// Scale
 		glm::mat4 scale = glm::scale(glm::mat4(), glm::vec3(0.5f, 0.5f, 0.5f));
 
+		// Rotació
+		glm::mat4 rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+
 		// Translate
 		glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 2.0f));
 
-		objMat = trans * scale;
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 1.0f, 0.0f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 1.0f, 1.0f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, 0.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.2f, 0.25f, 0.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.75f, 0.0f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.8f, 0.8f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -2.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.4f, 0.25f, -2.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.5f, 0.0f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.6f, 0.6f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(-1.0f, 0.25f, -4.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-1.6f, 0.25f, -4.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.25f, 0.0f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.4f, 0.4f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		////Segona Fila-----------------------------------------------------------------------------------------
@@ -1774,52 +1917,64 @@ void main() {\n\
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.5f, 0.5f, 0.5f));
 
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 2.0f));
 
-		objMat = trans * scale;
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 1.0f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 1.0f, 1.0f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, 0.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-0.2f, 0.25f, 0.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.75f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.8f, 0.8f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -2.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-0.4f, 0.25f, -2.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.5f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.6f, 0.6f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.25f, -4.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(-0.6f, 0.25f, -4.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.25f, 0.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.4f, 0.4f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		////Tercera Fila-----------------------------------------------------------------------------------------
@@ -1827,52 +1982,64 @@ void main() {\n\
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.5f, 0.5f, 0.5f));
 
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+
 		// Translate
 		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 2.0f));
 
-		objMat = trans * scale;
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 1.0f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 1.0f, 1.0f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Segon cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.45f, 1.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, 0.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(0.8f, 0.25f, 0.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 0.75f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.8f, 0.8f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Tercer cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.4f, 1.5f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -2.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(0.6f, 0.25f, -2.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 0.5f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.6f, 0.6f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		/// Quart cub---------------------------------------------------------------------
 		// Scale
 		scale = glm::scale(glm::mat4(), glm::vec3(0.35f, 3.0f, 0.5f));
 
-		// Translate
-		trans = glm::translate(glm::mat4(), glm::vec3(1.0f, 0.25f, -4.0f));
+		// Rotació
+		rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
-		objMat = trans * scale;
+		// Translate
+		trans = glm::translate(glm::mat4(), glm::vec3(0.4f, 0.25f, -4.0f));
+
+		objMat = trans * rot * scale;
 
 		glUniformMatrix4fv(glGetUniformLocation(cubeProgram, "objMat"), 1, GL_FALSE, glm::value_ptr(objMat));
-		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.0f, 0.25f, 0.0f);
+		glUniform4f(glGetUniformLocation(cubeProgram, "color"), 0.0f, 0.4f, 0.4f, 0.0f);
 		glDrawElements(GL_TRIANGLE_STRIP, numVerts, GL_UNSIGNED_BYTE, 0);
 
 		///-------------------------------------------------------------------------------
@@ -1880,6 +2047,7 @@ void main() {\n\
 		glBindVertexArray(0);
 		glDisable(GL_PRIMITIVE_RESTART);
 	}
+	
 	
 }
 
