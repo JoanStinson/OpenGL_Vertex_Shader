@@ -1157,9 +1157,9 @@ void main() {\n\
 		//glm::mat4 rot = glm::rotate(glm::mat4(), 30.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
 		// Translate
-		testval = testval + 0.009f;
-		if (testval > 0.55f)
-			testval = -0.55f;
+		testval = testval + 0.02f;
+		if (testval > 0.85f)
+			testval = -0.85f;
 		
 		glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(-4.0f*testval, 0.3f*sin(currentTime)+1, 3.0f));
 
