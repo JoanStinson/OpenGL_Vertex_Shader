@@ -1,4 +1,4 @@
-# C++ OpenGL Shader
+# C++ OpenGL Vertex Shader
 
 "Camera" transformations: 
 - Travellings
