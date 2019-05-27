@@ -2,7 +2,7 @@
 
 "Camera" transformations: 
 - Lateral Travelling
-- Object Close-up & FOV Increase
+- Object Close-up and FOV Increase
 - Inverse Dolly Effect
 
 ![](VertexShader.gif)
