@@ -1,8 +1,8 @@
 # C++ OpenGL Vertex Shader
 
 "Camera" transformations: 
-- Travellings
-- Zoom
-- Rotations
+- Lateral Travelling
+- Object Close-up & FOV Increase
+- Inverse Dolly Effect
 
 ![](VertexShader.gif)
